@@ -5,6 +5,10 @@ const Vehicle = require("./models/vehicle")
 let brand_url = 'https://parallelum.com.br/fipe/api/v1/carros/marcas'
 let allVehicles = []
 
+const SaveData = () => {
+  setTimeOut
+}
+
 const getBrandsAndModels = async () => {
   const response = await axios.get(brand_url)
   const vehicles = await response.data.map(brand => {
