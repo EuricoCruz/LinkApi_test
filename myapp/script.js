@@ -1,23 +1,31 @@
 const axios = require('axios')
+const mongoose = require('mongoose')
+const Vehicle = require("./models/vehicle")
 
 let brand_url = 'https://parallelum.com.br/fipe/api/v1/carros/marcas'
-let vehicles = []
-const myFunction = async () => {
-  setTimeout(function(){ 
-    vehicles.map(vehicle => console.log(vehicle))
-    // axios.get(`https://parallelum.com.br/fipe/api/v1/carros/marcas/59/modelos/5940/anos`)
-   }, 10000);
-}
+let allVehicles = []
 
-const getBrands = async () => {
+const getBrandsAndModels = async () => {
   const response = await axios.get(brand_url)
-  await response.data.map(res => {
-    axios.get(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${res.codigo}/modelos`)
-    .then(res => vehicles.push(res.data))
+  const vehicles = await response.data.map(brand => {
+    axios.get(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${brand.codigo}/modelos`)
+    .then(veiculos => veiculos.data.modelos.map(veiculo => {
+      veiculos.data.anos.map(carro => {
+      
+      let vehicle = {"nome": veiculo.nome, "codVehicle": veiculo.codigo, "marca": brand.nome, "codBrand": brand.codigo, 'ano': carro.nome }
+      console.log(vehicle)
+      allVehicles.push(vehicle)
+      console.log(allVehicles.length)
+      })
+    }))
     .catch(err => console.log(err))
-  })
-  myFunction()  
+  }) 
+
 }
 
 
-getBrands()
+
+
+
+
+getBrandsAndModels()
