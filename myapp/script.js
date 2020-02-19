@@ -1,15 +1,4 @@
-const axios = require('axios')
-const mongoose = require('mongoose')
-const Vehicle = require("./models/vehicle")
 
-// setting db configuration
-mongoose.connect('mongodb://localhost/LinkApi', { autoIndex: true });
-
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
- console.log('connected to mongoDB');
-});
 
 
 let brand_url = 'https://parallelum.com.br/fipe/api/v1/carros/marcas'
@@ -23,11 +12,14 @@ const saveFunction = () => {
       let information = veiculo.ano.split(" ")
       let year = information[0]
       let description = information[1] 
-      console.log(vehicle, brand, year, description)
+      console.log(index)
+      Vehicles.create({vehicle, brand, year, descriptions})
+      // console.log(vehicle, brand, year, description)
 
-      axios.post(`http://localhost:5000/vehicle`, {vehicle, brand, year, description})
-      .then(log => console.log(console.log(`salvando ${index} de ${allVehicles.length}`)))
-      .catch(error => console.log(error))
+
+      // axios.post(`http://localhost:5000/vehicle`, {vehicle, brand, year, description})
+      // .then(status => console.log(console.log(status)))
+      // .catch(error => console.log(error))
       
     })
     // axios.get(`https://parallelum.com.br/fipe/api/v1/carros/marcas/59/modelos/5940/anos`)
