@@ -26,28 +26,6 @@ router.get('/', (req, res, next) => {
     .catch(err => console.log(err))
 });
 
-
-  const getBrandsAndModels = async () => {
-    const response = await axios.get(brand_url)
-    const vehicles = await response.data.map(brand => {
-      axios.get(`https://parallelum.com.br/fipe/api/v1/carros/marcas/${brand.codigo}/modelos`)
-      .then(veiculos => veiculos.data.modelos.map(veiculo => {
-        veiculos.data.anos.map(carro => {
-        
-        let vehicle = {"nome": veiculo.nome, "codVehicle": veiculo.codigo, "marca": brand.nome, "codBrand": brand.codigo, 'ano': carro.nome }
-        console.log(vehicle)
-        allVehicles.push(vehicle)
-
-        })
-      }))
-      .catch(err => console.log(err))
-    }) 
-    saveFunction()
-  }
-
-  getBrandsAndModels()
-});
-
 // route to searchbar
 router.get("/search", (req, res) => {
     let q = req.query
