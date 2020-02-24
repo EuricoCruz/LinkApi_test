@@ -9,7 +9,7 @@ export default function AddForm() {
   const [message, setMessage] = useState('')
   const [added, setAdded] = useState(false)
 
-
+  // pega os dados do input
   const handleChange = (event) => {
     event.persist();
     setValues(values => ({ ...values, [event.target.name]: event.target.value }));
