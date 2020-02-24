@@ -1,15 +1,18 @@
 import React, {useState, useEffect} from 'react';
 import InputCustomizado from '../InputCustomizado/InputCustomizado';
 import axios from 'axios'
+import {useCookies} from 'react-cookie'
 import "./LoginBox.scss"
+import {useHistory} from 'react-router-dom'
 
 
 export default function LoginBox() {
-
+  const [cookies, setCookie] = useCookies(['name']);
   const [newUser, setNewUser] = useState(false)
   const [values, setValues] = useState({});
   const [hasMsg, setHasMsg] = useState(false)
   const [message, setMessage] = useState('')
+  const history = useHistory()
 
 
   const handleChange = (event) => {
@@ -29,10 +32,26 @@ export default function LoginBox() {
       return;
       }
       axios.post(`http://localhost:5000/users/login`, {email, password} )
-      .then(res => console.log(res))
-      .catch(err => console.log(err))
+      .then(res => {
+        setCookie("user", res.data)
+        history.push("/cars")
+      })
+      .catch(error => {
+        if(error.response.status === 400) {
+          setHasMsg(true)
+          setMessage("A senha ou o usuário estão incorretos")
+        }
+        if(error.response.status === 401) {
+          setHasMsg(true)
+          setMessage("A senha ou o usuário estão incorretos")
+        }
+        if(error.response.status === 402) {
+          setHasMsg(true)
+          setMessage("Usuário não cadastrado")
+        }
+    
 
-      return;
+      })
     } else {
       if(!email || !password || !passwordConfirmation || !name || email === "" || password === "" || name === "" || passwordConfirmation === "") {
       setHasMsg(true)
@@ -46,8 +65,19 @@ export default function LoginBox() {
       return;
     }
       axios.post(`http://localhost:5000/users`, {email, password, name} )
-      .then(res => console.log(res))
-      .catch(err => console.log(err))
+      .then(res => {
+        axios.post(`http://localhost:5000/users/login`, {email, password} )
+        .then(res => {
+          setCookie("user", res.data)
+          history.push("/cars")
+        })
+        .catch(err => console.log(err))
+      })
+      .catch(err => {
+        setHasMsg(true)
+        setMessage("Ocorreu um erro, tente novamente")
+        return;
+      })
     }
   }
   
@@ -58,7 +88,7 @@ export default function LoginBox() {
       {!newUser ? 
         <form  className="form-container" onSubmit={handleSubmit}>
         <h1 className="box-title">Faça seu login</h1>
-        {hasMsg && <span>{message}</span>}
+        {hasMsg && <span className="error-message">{message}</span>}
         <InputCustomizado 
           label="E-mail"
           type="email"
