@@ -42,7 +42,7 @@ router.post('/', (req, res, next) => {
   .then(user => {
     res.status(200).json({message: 'Usuário adicionado com sucesso'})
   })
-  .catch(err => console.log(err))  
+  .catch(err => console.log(err))
   })
 
 });
@@ -51,15 +51,24 @@ router.post('/', (req, res, next) => {
 router.post('/login', (req, res) => {
   let { email, password } = req.body
   User.findOne({ email }, (err, user) => {
-
-    if (err) {
-      res.status(500).json({ message: "Username check went bad." });
+    console.log(user)
+    if (err ) {
+      res.status(500).json({ message: "Usuário não encontrado" });
       return;
     }
 
-    if (user.password === password) {
-      res.status(200).json(user)
+    if(!user) {
+      res.status(402).json({ message: "Usuário não encontrado" });
+    } else {
+      if (user.password === password) {
+        res.status(200).json(user)
+      } else {
+        res.status(401).json({ message: "Usuário ou senha não coincindem" });
+        return;
+      }
+      
     }
+
 
   })
 

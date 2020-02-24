@@ -21,7 +21,7 @@ router.post('/', (req, res) => {
 router.get('/', (req, res, next) => {
     Vehicle.find()
     .then(vehicle => {
-      res.status(200).json(vehicle)
+      res.status(200).json(vehicle.concat())
     })
     .catch(err => console.log(err))
 });
@@ -67,6 +67,7 @@ router.patch('/:id', (req, res) => {
   id = req.params.id
   let data = req.body
   let updated = Date.now()
+  console.log(data)
   data.updated = updated
   
   Vehicle.update({_id:id}, {$set: data})
