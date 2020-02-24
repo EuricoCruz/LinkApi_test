@@ -45,7 +45,7 @@ export default function LoginBox() {
       setMessage("As senhas cadastradas não coincidem")
       return;
     }
-      axios.post(`http://localhost:5000/users`, {email, password, name, passwordConfirmation} )
+      axios.post(`http://localhost:5000/users`, {email, password, name} )
       .then(res => console.log(res))
       .catch(err => console.log(err))
     }
@@ -56,12 +56,11 @@ export default function LoginBox() {
     <div className="login-box-container"> 
 
       {!newUser ? 
-        <form onSubmit={handleSubmit}>
-      <div>
-        <h1>Faça seu Login</h1>
+        <form  className="form-container" onSubmit={handleSubmit}>
+        <h1 className="box-title">Faça seu login</h1>
         {hasMsg && <span>{message}</span>}
         <InputCustomizado 
-          label="Email"
+          label="E-mail"
           type="email"
           name="email"
           onChange={(event) => handleChange(event)}
@@ -73,15 +72,13 @@ export default function LoginBox() {
           onChange={(event) => handleChange(event)}
         />  
         <div onClick={() => setNewUser(true)}>
-          <span>Ainda não tem uma senha?</span><span>Cadastre-se</span>
+          <span className="trade-form">Ainda não tem uma senha? Cadastre-se</span>
         </div>
-        </div>
-        <button type="submit">Cadastrar</button>
+        <button className="call-to-action" type="submit">Cadastrar</button>
         </form>
         : 
-      <form onSubmit={handleSubmit}>
-        <div>
-      <h1>Faça seu Cadastro</h1>
+      <form className="form-container" onSubmit={handleSubmit}>
+      <h1 className="box-title">Faça seu cadastro</h1>
         {hasMsg && <span>{message}</span>}
         <InputCustomizado 
           label="Digite seu nome"
@@ -90,7 +87,7 @@ export default function LoginBox() {
           onChange={(event) => handleChange(event)}
         />  
         <InputCustomizado 
-          label="Digite um email"
+          label="Digite um e-mail"
           type="email"
           name="email"
           onChange={(event) => handleChange(event)}
@@ -102,16 +99,15 @@ export default function LoginBox() {
           onChange={(event) => handleChange(event)}
         />  
         <InputCustomizado 
-          label="Digite sua senha novamente"
+          label="Confirme a senha"
           type="password"
           name="passwordConfirmation"
           onChange={(event) => handleChange(event)}
         />
-        <div  className="" onClick={() => setNewUser(false)}>
-          <span>retornar para Login</span>
+        <div onClick={() => setNewUser(false)}>
+          <span className="trade-form">retornar para login</span>
         </div>
-        </div>
-        <button type="submit">Cadastrar</button>
+        <button className="call-to-action" type="submit">Cadastrar</button>
         </form>  
       }
     </div>

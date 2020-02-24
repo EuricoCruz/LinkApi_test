@@ -1,0 +1,50 @@
+.update-container {
+  height: 1080px;
+  width: 1600px;
+  background-image: url("../ShowCars/Smoke.png");
+  display:flex;
+  flex-direction: row;
+  justify-items: center;
+  justify-content: space-evenly;
+  color: lightyellow;
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    .div-button {
+      display: flex;
+      justify-content: center;
+      margin-top: 1em;
+      .edit-button {
+        background-color: red;
+        color: lightyellow;
+        border: none;
+        border-radius: 20px;
+        width: 30%;
+        height: 5%;
+        font-size: 1em;
+        font-weight: bold;
+        align-items: center;
+      }
+    }
+    .div-do-input-customizado {
+      display: flex;
+      flex-direction: column;
+      font-size: 1em;
+      font-weight: bold;
+      .label{
+         margin-left: 10px;
+      }
+      input {
+        margin: 8px;
+        width: 35em;
+        border: none;
+        border-radius: 15px;
+        height: 25px;
+        color: black;
+        font-size: 0.8em;
+        padding: 5px;
+        font-weight: bold;
+      }
+    }
+  }
+}

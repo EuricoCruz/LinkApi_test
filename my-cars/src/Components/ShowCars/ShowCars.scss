@@ -1,0 +1,47 @@
+.cars-container {
+    height: 1080px;
+    width: 1600px;
+    background-image: url("./Smoke.png");
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    .add-button {
+      background-color: red;
+      border: none;
+      border-radius: 15px;
+      color: lightyellow;
+      font-size: 1em;
+      font-weight: bold;
+      width: 20%;
+      height: 3%;
+    }
+    h1 {
+      color: lightyellow;
+    }
+  .car-cards-container {
+    display: grid;
+    grid-template-columns: 300px 300px 300px;
+  }
+  .pagination-account {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .previous, .next {
+      color: blue;
+      font-weight: bold;
+      font-size: 1.5em;
+    }
+    .pagination-list {
+      display:flex;
+      flex-flow: row;
+      align-items: center;
+      list-style-type: none;
+      margin-right: 40px;
+      a {
+        margin-left: 10px;
+        color: blue;
+        font-weight: bold;
+      }
+    }
+  }
+}

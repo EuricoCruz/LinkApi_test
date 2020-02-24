@@ -1,20 +1,51 @@
 .login-box-container {
-  border: 1px solid black;
+  border: 1px solid lightyellow 0.5;
   border-radius: 5px;
   width: 40%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 600px;
+  }
+  .box-title {
+    color: lightyellow;
+    font-size: 2.5rem; 
+  }
   .div-do-input-customizado {
     display: flex;
     flex-flow: column;
     align-items: center;
     margin: 10px;
+    width: 90%;
+    .label {
+      color: blue;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
     input {
-      width: 80%;
+      width: 90%;
       border-radius: 10px;
       height: 1.5rem;
     }
+  }
+  .trade-form {
+    color: blue;
+    cursor: pointer;
+    margin: 1rem;
+    padding: 1rem;
+  }
+  .call-to-action {
+    color: lightyellow;
+    background-color: red;
+    width: 40%;
+    font-size: 1.2rem;
+    border-radius: 20px;
+    margin-top: 1rem;
+    height: 40px;
   }
 }
